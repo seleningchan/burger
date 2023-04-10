@@ -8,7 +8,7 @@ Burger is a backend API built with dotnet core 6.0 and Mongo 6 (ssr supported).
 
 GIF 3M
 
-![ancorazor gif demostration](https://s2.ax1x.com/2019/06/28/ZMxQs0.gif)
+![ancorazor gif demostration](https://img2023.cnblogs.com/blog/780669/202304/780669-20230410202828515-1626686015.png)
 
 
 ## Getting start
