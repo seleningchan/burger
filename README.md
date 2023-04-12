@@ -1,6 +1,6 @@
 # Burger
 
-Burger is a backend API built with dotnet core 6.0 and Mongo 6 (ssr supported).
+Burger is a backend API built with dotnet core 6.0 and Mongo 6.
 
 Context and container diagram
 
@@ -30,5 +30,5 @@ Make sure your machine has these dependancies installed.
 
 ## Release(CI/CD)
 
-Refer to [azure-pipelines.yml](https://github.com/siegrainwong/ancorazor/blob/master/azure-pipelines.yml).
+Refer to [azure-pipelines.yml](https://github.com/seleningchan/burger/blob/main/azure-pipelines.yml).
 
