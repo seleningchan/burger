@@ -1,6 +1,6 @@
 # Burger
 
-Burger is a backend API built with dotnet core 6.0 and Mongo 6 (ssr supported).
+Burger is a backend API built with dotnet core 6.0 and Mongo 6.
 
 Context and container diagram
 
