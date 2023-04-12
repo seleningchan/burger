@@ -10,8 +10,9 @@ namespace Conley.SocialPlatform.Bugers.Domain.Entities
     public class RestaurantEntity
     {
         
-        public string _Id { get; set; }
-        public int Id { get; set; }
+        public BsonObjectId _id { get; set; }
+        //public int Id { get; set; }
+        public int RestaurantId { get; set; }
         public bool ContainBurger { get; set; }
         public BsonDateTime OpenTime { get; set; }
         public BsonDateTime EndTime { get; set; }

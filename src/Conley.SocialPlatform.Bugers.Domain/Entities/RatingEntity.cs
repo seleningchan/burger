@@ -9,7 +9,7 @@ namespace Conley.SocialPlatform.Bugers.Domain.Entities
 {
     public class RatingEntity
     {
-        public int _Id { get; set; }
+        public BsonObjectId _id { get; set; }
         public int UserId { get; set; }
         public int TasteScore { get; set; }
         public int TextureScore { get; set; }

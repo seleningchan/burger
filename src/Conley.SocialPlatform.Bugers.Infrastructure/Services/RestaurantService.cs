@@ -27,7 +27,7 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Services
         public async Task<IEnumerable<RestaurantResource>> FindLocalBurgerRestaurantAsync(string cityName)
         {
             var city = await _cityRepository.GetCityByNameAsync(cityName);
-            var restaurants = (await _restaurantRepository.FindRestaurantByCity(city.Id))
+            var restaurants = (await _restaurantRepository.FindRestaurantByCity(city.CityId))
                                 .Where(n => n.ContainBurger)
                                 .ToList();
             var restaurantResources=_mapper.Map<IEnumerable<RestaurantEntity>, IEnumerable<RestaurantResource>>(restaurants);

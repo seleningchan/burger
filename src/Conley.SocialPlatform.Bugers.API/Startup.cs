@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Conley.SocialPlatform.Bugers.Application;
 using Conley.SocialPlatform.Bugers.Infrastructure;
+using Conley.SocialPlatform.Bugers.Infrastructure.Settings;
 using Conley.SocialPlatform.Bugers.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -32,8 +33,9 @@ namespace Conley.SocialPlatform.Bugers.API
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 }));
-            services.AddMvc().AddNewtonsoftJson();
+            services.AddControllers();
             services.AddSingleton<BearerToken>();
+            services.AddSingleton<MongoSettings>();
 
             services.AddSwaggerGen(c =>
             {
@@ -66,29 +68,37 @@ namespace Conley.SocialPlatform.Bugers.API
                     op.TokenValidationParameters = BearerToken.CreateValidationParameters();
                 });
             services.ConfigureApplicationServices();
+            services.ConfigurePersistenceServices();
             using (var serviceProvider = services.BuildServiceProvider())
             {
                 var config = serviceProvider.GetRequiredService<IConfiguration>();
                 
                 services.ConfigureInfrastrutureServices(config);
             }
-            services.ConfigurePersistenceServices();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
             app.UseMyExceptionHander(loggerFactory);
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BurgerSocialPlatform"));
             app.UseCors(_policyName);
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                // Require Authorization for all controllers
+                endpoints.MapControllers().RequireAuthorization();
+            });
+
         }
     }
 }

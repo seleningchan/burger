@@ -12,6 +12,12 @@ namespace Conley.SocialPlatform.Bugers.Persistence.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly IMongoCollection<UserEntity> _userCollection;
+
+        public UserRepository(IMongoCollection<UserEntity> userCollection)
+        {
+            _userCollection = userCollection;
+        }
+
         public Task AddEntityAsync(UserEntity entity)
         {
             throw new NotImplementedException();

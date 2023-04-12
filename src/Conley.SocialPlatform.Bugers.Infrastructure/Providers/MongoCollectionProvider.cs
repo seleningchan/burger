@@ -17,10 +17,10 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Providers
     {
         private readonly IMongoDatabase _mongoDatabase;
 
-        public MongoCollectionProvider(IMongoClientFactory mongoClientFactory, IOptions<MongoSettings> mongoSettings, ILogger<MongoCollectionProvider> logger)
+        public MongoCollectionProvider(IMongoClientFactory mongoClientFactory, MongoSettings mongoSettings, ILogger<MongoCollectionProvider> logger)
         {
             var client = mongoClientFactory.Build(logger);
-            _mongoDatabase = client.GetDatabase(mongoSettings.Value.DatabaseName);
+            _mongoDatabase = client.GetDatabase(mongoSettings.DatabaseName);
         }
 
         public IMongoCollection<CategoryEntity> GetCategories() => 
@@ -39,7 +39,7 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Providers
             _mongoDatabase.GetCollection<RatingEntity>(Constants.MongoCollections.RatingCollectionName);
 
         public IMongoCollection<RestaurantEntity> GetRestuarants() =>
-            _mongoDatabase.GetCollection<RestaurantEntity>(Constants.MongoCollections.RatingCollectionName);
+            _mongoDatabase.GetCollection<RestaurantEntity>(Constants.MongoCollections.RestuarantCollectionName);
 
         public IMongoCollection<UserEntity> GetUsers() =>
             _mongoDatabase.GetCollection<UserEntity>(Constants.MongoCollections.UserCollectionName);

@@ -9,8 +9,8 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Settings
 {
     public class MongoSettings : IMongoSettings
     {
-        public string ConnectionString { get; set; }
-        public string DatabaseName { get; set; }
+        public string ConnectionString { get; set; } = "mongodb://localhost:27017";
+        public string DatabaseName { get; set; } = "burgersocialplatform";
 
         public static class EnvironmentVariables
         {

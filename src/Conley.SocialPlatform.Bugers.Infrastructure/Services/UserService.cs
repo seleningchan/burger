@@ -13,10 +13,16 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
         public async Task<bool> CheckUserAsync(LoginParameter parameter)
         {
             var user = await _userRepository.GetUserAsync(parameter.UserName);
-            if (user != null && SecurePasswordHasher.Hash(parameter.Password) == user.Password)
+            var pwd = SecurePasswordHasher.Hash(parameter.Password);
+            if (user != null && SecurePasswordHasher.Verify(parameter.Password, user.Password))
             {
                 return true;
             }

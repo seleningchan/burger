@@ -5,6 +5,8 @@ using Conley.SocialPlatform.Bugers.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+[ApiController]
+[Route("api/user")]
 public class UserController : Controller
 {
     private readonly IUserService _userService;
@@ -17,10 +19,12 @@ public class UserController : Controller
     }
 
     [AllowAnonymous]
-    [HttpPost]
-    public async Task<IActionResult> GenerateBearerToken(LoginParameter loginParameter)
+    [HttpPost("token")]
+    public async Task<IActionResult> GenerateBearerToken([FromBody] LoginParameter loginParameter)
     {
         (string, string) tokenAndExpiredTime = new(string.Empty, string.Empty);
+        //tokenAndExpiredTime = _bearerToken.CreateAsString(loginParameter.UserName);
+        //await Task.CompletedTask;
         if (await _userService.CheckUserAsync(loginParameter))
         {
             tokenAndExpiredTime = _bearerToken.CreateAsString(loginParameter.UserName);

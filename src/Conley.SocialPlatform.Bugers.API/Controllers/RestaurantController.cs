@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Conley.SocialPlatform.Bugers.Application.Contracts.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -13,14 +14,22 @@ public class RestaurantController : Controller
         _restaurantService = restaurantService;
     }
 
-    [HttpGet("{city}")]
+    [HttpGet("city/{city}")]
     public async Task<IActionResult> FindLocalRestaurant(string city)
     {
         var restaurants = await _restaurantService.FindLocalBurgerRestaurantAsync(city);
         return Ok(restaurants);
     }
 
-    [HttpGet("{position}")]
+    //[AllowAnonymous]
+    //[HttpGet("test/{city}")]
+    //public async Task<IActionResult> Test(string city)
+    //{
+    //    var restaurants = await _restaurantService.FindLocalBurgerRestaurantAsync(city);
+    //    return Ok(restaurants);
+    //}
+
+    [HttpGet("position/{position}")]
     public async Task<IActionResult> FindNearRestaurant(string position)
     {
         var postionDetails = position.Split(",");

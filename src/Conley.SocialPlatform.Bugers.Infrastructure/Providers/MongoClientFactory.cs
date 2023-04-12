@@ -12,8 +12,8 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Providers
 {
     public class MongoClientFactory: IMongoClientFactory
     {
-        private readonly IOptions<MongoSettings> _mongoSettings;
-        public MongoClientFactory(IOptions<MongoSettings> mongoSettings)
+        private readonly MongoSettings _mongoSettings;
+        public MongoClientFactory(MongoSettings mongoSettings)
         {
             _mongoSettings = mongoSettings;
         }
@@ -21,7 +21,7 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Providers
         public MongoClient Build(ILogger logger = null)
         {
             logger = logger ?? NullLogger.Instance;
-            var clientSettings = MongoClientSettings.FromConnectionString(_mongoSettings.Value.ConnectionString);
+            var clientSettings = MongoClientSettings.FromConnectionString(_mongoSettings.ConnectionString);
             clientSettings.ClusterConfigurator = cb =>
             {
                 if (logger.IsEnabled(LogLevel.Debug))

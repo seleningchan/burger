@@ -21,6 +21,7 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure
     {
         public static IServiceCollection ConfigureInfrastrutureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var data = configuration.GetSection(nameof(MongoSettings));
             services.Configure<MongoSettings>(setting=> configuration.GetSection(nameof(MongoSettings)));
 
             services.AddSingleton<IMongoClientFactory, MongoClientFactory>();
@@ -37,7 +38,7 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IRatingService, RatingService>();
-           
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
         

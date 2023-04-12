@@ -44,12 +44,13 @@ namespace Conley.SocialPlatform.Bugers.Persistence.Repositories
         {
             var burgerRestaurants = _foodCollection.Find(n => n.CategoryId == 1).ToList();
             var gp = new GeoJsonPoint<GeoJson2DGeographicCoordinates>(new GeoJson2DGeographicCoordinates(longitude, latitude));
-            var query = Builders<RestaurantEntity>.Filter.Near("location", gp, 2000);
-            var result = await _restuarantMongoCollection
-                .Find(query)
-                .LogCommand(_logger)
-                .ToListAsync();
-            result= result.Where(n => burgerRestaurants.Select(x => x.RestaurantId).Contains(n.Id)).ToList();
+            var query = Builders<RestaurantEntity>.Filter.Near("Location", gp, 2000);
+            //var result = await _restuarantMongoCollection
+            //    .Find(query)
+            //    .LogCommand(_logger)
+            //    .ToListAsync();
+            var result = await _restuarantMongoCollection.AsQueryable().ToListAsync();
+            result = result.Where(n => burgerRestaurants.Select(x => x.RestaurantId).Contains(n.RestaurantId)).ToList();
             return result;
         }
 
