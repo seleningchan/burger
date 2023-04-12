@@ -20,7 +20,7 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> GenerateBearerToken(LoginParameter loginParameter)
     {
-        (string, string) tokenAndExpiredTime=new (string.Empty, string.Empty);
+        (string, string) tokenAndExpiredTime = new(string.Empty, string.Empty);
         if (await _userService.CheckUserAsync(loginParameter))
         {
             tokenAndExpiredTime = _bearerToken.CreateAsString(loginParameter.UserName);

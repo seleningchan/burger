@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using Conley.SocialPlatform.Bugers.Application;
@@ -22,7 +23,7 @@ namespace Conley.SocialPlatform.Bugers.API
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(opt =>
                 opt.AddPolicy(name: _policyName, builder =>
@@ -32,7 +33,6 @@ namespace Conley.SocialPlatform.Bugers.API
                         .AllowAnyMethod();
                 }));
             services.AddMvc().AddNewtonsoftJson();
-
             services.AddSingleton<BearerToken>();
 
             services.AddSwaggerGen(c =>
@@ -65,9 +65,13 @@ namespace Conley.SocialPlatform.Bugers.API
                 {
                     op.TokenValidationParameters = BearerToken.CreateValidationParameters();
                 });
-
             services.ConfigureApplicationServices();
-            services.ConfigureInfrastrutureServices(configuration);
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                var config = serviceProvider.GetRequiredService<IConfiguration>();
+                
+                services.ConfigureInfrastrutureServices(config);
+            }
             services.ConfigurePersistenceServices();
         }
 

@@ -14,6 +14,7 @@ namespace Conley.SocialPlatform.Bugers.Persistence
             services.AddScoped<IFoodRepository, FoodRepository>();
             services.AddScoped<IRatingRepositry, RatingRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IImageRepository,ImageRepository>();
             return services;
         }
     }

@@ -12,9 +12,9 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure.Services
     public class ImageService : IImageService
     {
         private readonly IStoreProvider _storeProvider;
-        private readonly ImageRepository _imageRepository;
+        private readonly IImageRepository _imageRepository;
         private readonly IMapper _mapper;
-        public ImageService(IStoreProvider storeProvider, ImageRepository imageRepository,
+        public ImageService(IStoreProvider storeProvider, IImageRepository imageRepository,
             IMapper mapper)
         {
             _storeProvider = storeProvider;

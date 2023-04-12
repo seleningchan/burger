@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using Conley.SocialPlatform.Bugers.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Conley.SocialPlatform.Bugers.Infrastructure
 {
@@ -31,11 +33,11 @@ namespace Conley.SocialPlatform.Bugers.Infrastructure
             services.AddScoped(servicesProvider => servicesProvider.GetService<IMongoCollectionProvider>().GetUsers());
             services.AddScoped(servicesProvider => servicesProvider.GetService<IMongoCollectionProvider>().GetImages());
             services.AddScoped(servicesProvider => servicesProvider.GetService<IMongoCollectionProvider>().GetCities());
-
+            services.AddScoped<IStoreProvider, LocalStoreProvider>();
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IRatingService, RatingService>();
-            services.AddScoped<IStoreProvider, LocalStoreProvider>();
+           
             return services;
         }
         
